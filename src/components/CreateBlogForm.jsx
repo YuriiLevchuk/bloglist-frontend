@@ -1,10 +1,14 @@
 import { useState } from "react"
 import blogServices from '../services/blogs'
 
+import Notification from "./Notification"
+
 const CreateBlogForm = ({ setBlogs }) => {
   const [ title, setTitle ] = useState('')
   const [ author, setAuthor ] = useState('');
   const [ url, setUrl ] = useState('');
+  const [ notification, setNotification ] = useState(null);
+  const [ isError, setIsError ] = useState(false);
 
   const handleCreate = async(e) => {
     e.preventDefault()
@@ -16,12 +20,23 @@ const CreateBlogForm = ({ setBlogs }) => {
       setTitle('')
       setAuthor('')
       setUrl('')
+
+      setNotification(`Created new blog "${newBlog.title}"`)
+      setIsError(false)
+      setTimeout(()=>{
+        setNotification(null)
+      }, 5000)
     }catch(err){
-      console.log(err)
+      setNotification('Failed to create new blog')
+      setIsError(true)
+      setTimeout(()=>{
+        setNotification(null)
+      }, 5000)
     }
   }
 
   return<>
+    <Notification notification={notification} error={isError}/>
     <h2>Create new Blog</h2>
 
     <form onSubmit={handleCreate}>

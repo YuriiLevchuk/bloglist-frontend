@@ -2,9 +2,13 @@ import { useState } from 'react'
 import blogService from '../services/blogs'
 import loginService from '../services/login'
 
+import Notification from './Notification'
+
 const LoginForm = ({ user, setUser}) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [notification, setNotification] = useState(null)
+  const [isError, setIsError] = useState(false)
 
   const handleLogin = async(event) => {
     event.preventDefault()
@@ -20,13 +24,19 @@ const LoginForm = ({ user, setUser}) => {
 
       setUsername('');
       setPassword('');
-    }catch{
-      console.log('wrong credentials')
+    }catch(err){
+      setNotification('Wrond Credentials')
+      setIsError(true)
+      setTimeout(()=>{
+        setNotification(null)
+      }, 5000)
     }
   }
 
   return<>
     <h2>Login to Application</h2>
+    
+    <Notification notification={notification} error={isError}/>
 
     <form onSubmit={handleLogin}>
         <div>

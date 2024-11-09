@@ -16,6 +16,13 @@ const App = () => {
     )  
   }, [])
 
+  useEffect(()=>{
+    const loggedInUser = window.localStorage.getItem('loggedInBlogUser')
+    if(loggedInUser !== null){
+      setUser(JSON.parse(loggedInUser))
+    }
+  }, [])
+
   //page elements//
   const showLoginForm = ()=>{
     return<>
@@ -49,22 +56,33 @@ const App = () => {
     return <>
       <h2>Blogs</h2>
       <p>Logged in as {user.name}</p>
+
+      <button
+        onClick={()=>{
+          window.localStorage.setItem('loggedInBlogUser', null)
+          setUser(null)
+        }}>
+        log out
+      </button><br />
+
       {blogs.map(
         blog => <Blog key={blog.id} blog={blog} />
       )}
     </>
   }
 
-  // handlers //
+  // button handlers //
   const handleLogin = async(event) => {
     event.preventDefault()
     try{
       const loginInfo = {username, password};
-      const loggedInUser = await loginService.login(loginInfo);
+      const userInput = await loginService.login(loginInfo);
 
-      console.log(`logged in as ${loggedInUser.username}`)
-      console.log(loggedInUser.token)
-      setUser(loggedInUser);
+      window.localStorage.setItem(
+        'loggedInBlogUser', JSON.stringify(userInput)
+      ) 
+      setUser(userInput);
+
       setUsername('');
       setPassword('');
     }catch{

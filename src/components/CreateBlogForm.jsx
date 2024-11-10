@@ -15,13 +15,14 @@ const CreateBlogForm = ({ setBlogs }) => {
     try{
       const newBlog = { title, author, url }
       const res = await blogServices.create(newBlog)
+
       setBlogs( x => x.concat(res))
 
       setTitle('')
       setAuthor('')
       setUrl('')
-
       setNotification(`Created new blog "${newBlog.title}"`)
+
       setIsError(false)
       setTimeout(()=>{
         setNotification(null)

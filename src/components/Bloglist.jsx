@@ -39,7 +39,8 @@ const Bloglist = ({ user, setUser }) => {
       
       <br />
 
-      {blogs.map(
+      {blogs.sort((a, b) => b.likes - a.likes) // sort array by likes (descending)
+        .map(
         blog => (<Blog key={blog.id} blog={blog} />)
       )}
   </>

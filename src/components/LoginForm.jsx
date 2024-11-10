@@ -3,6 +3,7 @@ import blogService from '../services/blogs'
 import loginService from '../services/login'
 
 import Notification from './Notification'
+import Togglable from './Togglable'
 
 const LoginForm = ({ user, setUser}) => {
   const [username, setUsername] = useState('')
@@ -38,27 +39,29 @@ const LoginForm = ({ user, setUser}) => {
     
     <Notification notification={notification} error={isError}/>
 
-    <form onSubmit={handleLogin}>
-        <div>
-          username
-          <input 
-            type="text"
-            value={username}
-            name="Username"
-            onChange={ ({target})=>setUsername(target.value) }
-          />
-        </div>
-        <div>
-          password
-          <input 
-            type="password"
-            value={password}
-            name="Password"
-            onChange={ ({target})=>setPassword(target.value) }
-          />
-        </div>
-        <button type="submit">login</button>
-    </form>
+    <Togglable label="Login Form">
+      <form onSubmit={handleLogin}>
+          <div>
+            username
+            <input 
+              type="text"
+              value={username}
+              name="Username"
+              onChange={ ({target})=>setUsername(target.value) }
+            />
+          </div>
+          <div>
+            password
+            <input 
+              type="password"
+              value={password}
+              name="Password"
+              onChange={ ({target})=>setPassword(target.value) }
+            />
+          </div>
+          <button type="submit">Login</button>
+      </form>
+    </Togglable>
   </>
 }
 

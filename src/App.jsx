@@ -18,34 +18,6 @@ const App = () => {
     }
   }, [])
 
-  //page elements//
-  const showBlogList = () =>{
-    return <>
-      <h2>Blogs</h2>
-      <p>Logged in as {user.name}</p>
-
-      <button
-        onClick={()=>{
-          window.localStorage.setItem('loggedInBlogUser', null)
-          setUser(null)
-        }}>
-        log out
-      </button><br />
-
-      <> 
-      </>
-      {blogs.map(
-        blog => <Blog key={blog.id} blog={blog} />
-      )}
-    </>
-  }
-
-  // button handlers //
-
-  const handleCreate = async(event) => {
-    event.preventDefault();
-  }
-
   return (
     <div>
       {user === null

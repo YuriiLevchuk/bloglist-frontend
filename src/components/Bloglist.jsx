@@ -3,6 +3,8 @@ import blogService from '../services/blogs'
 
 import CreateBlogForm from './CreateBlogForm'
 import Blog from './Blog'
+import Togglable from './Togglable'
+
 
 const Bloglist = ({ user, setUser }) => {
   const [blogs, setBlogs] = useState([])
@@ -14,6 +16,8 @@ const Bloglist = ({ user, setUser }) => {
     )  
   }, [])
 
+
+
   const handleLogout = () => {
     window.localStorage.setItem('loggedInBlogUser', null)
     setUser(null)
@@ -22,13 +26,18 @@ const Bloglist = ({ user, setUser }) => {
   return <>
       <h2>Blogs</h2>
       <div>
-        Logged in as {user.name} <br />
+        Logged in as {user.name} &ensp;
         <button onClick={handleLogout}>
           Log Out
         </button>
-      </div>
+      </div> <br />
 
-      <CreateBlogForm setBlogs={setBlogs}/><br />
+      <Togglable label="New Note">
+        <CreateBlogForm setBlogs={setBlogs}/>
+      </Togglable>
+      
+      
+      <br />
 
       {blogs.map(
         blog => <Blog key={blog.id} blog={blog} />

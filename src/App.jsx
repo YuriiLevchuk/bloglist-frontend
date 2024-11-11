@@ -1,21 +1,21 @@
-import { useState, useEffect } from 'react'
-import blogService from './services/blogs'
-import loginService from './services/login'
+import { useState, useEffect } from 'react';
+import blogService from './services/blogs';
+import loginService from './services/login';
 
-import Bloglist from './components/Bloglist'
-import LoginForm from './components/LoginForm'
+import Bloglist from './components/Bloglist';
+import LoginForm from './components/LoginForm';
 
 const App = () => {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
 
   // check if user data is in local storage //
-  useEffect(()=>{
-    const loggedInUser = JSON.parse(window.localStorage.getItem('loggedInBlogUser'))
+  useEffect(() => {
+    const loggedInUser = JSON.parse(window.localStorage.getItem('loggedInBlogUser'));
     if(loggedInUser !== null){
-      setUser(loggedInUser)
-      blogService.setToken(loggedInUser.token)
+      setUser(loggedInUser);
+      blogService.setToken(loggedInUser.token);
     }
-  }, [])
+  }, []);
 
   return (
     <div>
@@ -24,7 +24,7 @@ const App = () => {
         : <Bloglist user={user} setUser={setUser}/>
       }
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

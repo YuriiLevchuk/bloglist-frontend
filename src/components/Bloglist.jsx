@@ -1,52 +1,58 @@
-import { useState, useEffect } from 'react'
-import blogService from '../services/blogs'
+import { useState, useEffect } from 'react';
+import blogService from '../services/blogs';
+import PropTypes from 'prop-types';
 
-import CreateBlogForm from './CreateBlogForm'
-import Blog from './Blog'
-import Togglable from './Togglable'
+import CreateBlogForm from './CreateBlogForm';
+import Blog from './Blog';
+import Togglable from './Togglable';
 
 
 const Bloglist = ({ user, setUser }) => {
-  const [blogs, setBlogs] = useState([])
+  const [blogs, setBlogs] = useState([]);
 
   // get blogs //
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
-  }, [])
+    );
+  }, []);
 
 
 
   const handleLogout = () => {
-    window.localStorage.setItem('loggedInBlogUser', null)
-    setUser(null)
-  }
+    window.localStorage.setItem('loggedInBlogUser', null);
+    setUser(null);
+  };
 
   return <>
-      <h2>Blogs</h2>
-      <div>
+    <h2>Blogs</h2>
+    <div>
         Logged in as {user.name} &ensp;
-        <button onClick={handleLogout}>
+      <button onClick={handleLogout}>
           Log Out
-        </button>
-      </div> <br />
+      </button>
+    </div> <br />
 
-      <Togglable label="New Note">
-        <CreateBlogForm setBlogs={setBlogs}/>
-      </Togglable>
-      
-      
-      <br />
+    <Togglable label="New Note">
+      <CreateBlogForm setBlogs={setBlogs}/>
+    </Togglable>
 
-      {blogs.sort((a, b) => b.likes - a.likes) // sort array by likes (descending)
-        .map(
+
+    <br />
+
+    {blogs.sort((a, b) => b.likes - a.likes) // sort array by likes (descending)
+      .map(
         blog => (
-          <Blog 
-            key={blog.id} blog={blog} user={user} 
+          <Blog
+            key={blog.id} blog={blog} user={user}
           />)
       )}
-  </>
-}
+  </>;
+};
 
-export default Bloglist
+blogService.PropTypes = {
+  user: PropTypes.object.isRequired,
+  setUser: PropTypes.func.isRequired
+};
+
+export default Bloglist;

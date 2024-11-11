@@ -1,14 +1,17 @@
-import { useState, useEffect } from "react"
+import PropTypes from 'prop-types';
 
 const Notification = ({ notification, error }) => {
-  if(!notification) return null
+  if(!notification) return null;
 
   return <>
     {!error
       ? <div className="notification message">{notification}</div>
       : <div className="notification error">{notification}</div>
     }
-  </>
-}
+  </>;
+};
 
-export default Notification
+Notification.propTypes = {
+};
+
+export default Notification;

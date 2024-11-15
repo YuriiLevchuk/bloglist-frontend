@@ -59,7 +59,7 @@ const Blog = ({ blog, user }) => {
       <p>
         <a href={blog.url}>{blog.url}</a> <br />
 
-        likes {likes} &ensp;
+        <a>likes {likes}</a> &ensp;
         <button onClick={likeBlog}>like</button> <br />
         {blog.author} <br />
       </p>

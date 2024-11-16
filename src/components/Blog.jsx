@@ -21,7 +21,7 @@ const Blog = ({ blog, user, mock }) => {
   const toggleFullView = () => setIsFullView(x => !x);
 
   const likeBlog = async() => {
-    mock();
+    if(mock) mock();
     try{
       const likedBlog = {
         ...blog,
@@ -31,7 +31,7 @@ const Blog = ({ blog, user, mock }) => {
       await blogServices.update(likedBlog);
       setLikes( x => x+1 );
     } catch(err){
-      console.log('faied to like blog');
+      console.error('faied to like blog');
     }
   };
 

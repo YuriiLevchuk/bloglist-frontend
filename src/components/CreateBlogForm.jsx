@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import Notification from './Notification';
 
-const CreateBlogForm = ({ setBlogs }) => {
+const CreateBlogForm = ({ setBlogs, mock }) => {
   const [ title, setTitle ] = useState('');
   const [ author, setAuthor ] = useState('');
   const [ url, setUrl ] = useState('');
@@ -15,6 +15,7 @@ const CreateBlogForm = ({ setBlogs }) => {
     e.preventDefault();
     try{
       const newBlog = { title, author, url };
+      if(mock) mock(newBlog);
       const res = await blogServices.create(newBlog);
 
       setBlogs( x => x.concat(res));

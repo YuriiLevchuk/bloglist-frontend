@@ -2,7 +2,7 @@ import { useState } from 'react';
 import blogServices from '../services/blogs';
 import PropTypes from 'prop-types';
 
-const Blog = ({ blog, user }) => {
+const Blog = ({ blog, user, mock }) => {
   const [ isFullView, setIsFullView ] = useState(false);
   const [ likes, setLikes ] = useState(blog.likes);
   const [ deletionStyle, setDeletionStyle] = useState({ display: '' });
@@ -21,6 +21,7 @@ const Blog = ({ blog, user }) => {
   const toggleFullView = () => setIsFullView(x => !x);
 
   const likeBlog = async() => {
+    mock();
     try{
       const likedBlog = {
         ...blog,

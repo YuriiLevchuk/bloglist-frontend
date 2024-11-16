@@ -22,7 +22,6 @@ test('renders title', () => {
   render(<Blog blog={blog} />);
 
   const element = screen.getByText('"Component testing is done with react-testing-library" by author1');
-
   expect(element).toBeDefined();
 });
 
@@ -38,4 +37,17 @@ test('shows url and num of likes in full view', async() => {
 
   const likes = screen.getByText(`likes ${blog.likes}`);
   expect(likes).toBeDefined();
+});
+
+// had to modify Blog comonent to do the exercise acording to the instruction
+test('like button clicked twice', async() => {
+  const mockHandler = vi.fn();
+  const user = userEvent.setup();
+  render(<Blog blog={blog} user={blogUser} mock={mockHandler}/>);
+
+  await user.click(screen.getByText('View'));
+  await user.click(screen.getByText('like'));
+  await user.click(screen.getByText('like'));
+
+  expect(mockHandler.mock.calls).toHaveLength(2);
 });

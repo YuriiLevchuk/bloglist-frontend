@@ -17,7 +17,7 @@ const Togglable = (props) => {
   return(
     <>
       <div style={childrenStyle[0]}> {/* before unrolling */}
-        <button onClick={toggleVisibility}>
+        <button name='toggle' onClick={toggleVisibility}>
           {label}
         </button>
       </div>

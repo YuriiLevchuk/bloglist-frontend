@@ -27,7 +27,7 @@ const LoginForm = ({ user, setUser }) => {
       setUsername('');
       setPassword('');
     }catch(err){
-      setNotification('Wrond Credentials');
+      setNotification('Wrong Credentials');
       setIsError(true);
       setTimeout(() => {
         setNotification(null);
@@ -43,24 +43,29 @@ const LoginForm = ({ user, setUser }) => {
     <Togglable label="Login Form">
       <form onSubmit={handleLogin}>
         <div>
-            username
-          <input
-            type="text"
-            value={username}
-            name="Username"
-            onChange={ ({ target }) => setUsername(target.value) }
-          />
+          <label htmlFor="username">username
+            <input
+              type="text"
+              value={username}
+              id="username"
+              name="username"
+              onChange={ ({ target }) => setUsername(target.value) }
+            />
+          </label>
+          
         </div>
         <div>
-            password
-          <input
-            type="password"
-            value={password}
-            name="Password"
-            onChange={ ({ target }) => setPassword(target.value) }
-          />
+          <label htmlFor="password">password
+            <input
+              type="password"
+              value={password}
+              id="password"
+              name="password"
+              onChange={ ({ target }) => setPassword(target.value) }
+            />
+          </label>
         </div>
-        <button type="submit">Login</button>
+        <button name="login" type="submit">Login</button>
       </form>
     </Togglable>
   </>;
